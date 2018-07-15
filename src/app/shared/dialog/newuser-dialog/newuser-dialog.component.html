@@ -1,0 +1,47 @@
+<h2 mat-dialog-title color="primary">
+  <mat-icon color="primary">plus</mat-icon>
+  Add Expense
+</h2>
+<mat-dialog-content>
+<div class="" *ngIf="loaderIsActive">
+    <mat-progress-bar mode="indeterminate" color="{{progressColor}}"></mat-progress-bar>
+</div>
+<form #frmExpense (ngSubmit)="saveExpense()" name="expenseForm" id="expenseForm">
+    <div class="form-row">
+        <div class="col-md-6">
+            <mat-form-field appearance="standard">
+                <mat-label>Title</mat-label>
+                <input name="txtTitle" matInput placeholder="Expense Title" required="" #title [(ngModel)]="expensePayload.title">
+              </mat-form-field>
+        </div>
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Amount</mat-label>
+                <input name="txtAmout" matInput placeholder="Amount" required="" #amount [(ngModel)]="expensePayload.amount" >
+              </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-md-6">
+            <mat-form-field>
+                <mat-label>Date</mat-label>
+                <input name="txtDate" matInput placeholder="Expense Date" [matDatepicker]="expenseDatePicker" [(ngModel)]="expensePayload.expenseDate" #date disabled>
+                <mat-datepicker-toggle matSuffix [for]="expenseDatePicker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon> 
+                </mat-datepicker-toggle>
+                <mat-datepicker #expenseDatePicker disabled="false"></mat-datepicker>
+              </mat-form-field>
+        </div>
+      </div>
+      <div class="form-row">
+            <mat-form-field>
+              <mat-label>Additional Info (optional)</mat-label>
+              <textarea name="txtDescription" matInput placeholder="Describe expenditure" cols="2" [(ngModel)]="expensePayload.description"></textarea>
+              </mat-form-field>
+      </div>
+</form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button class="mat-raised-button"(click)="close()">Close</button>
+    <button type="submit" name="btnAddExpense" form="expenseForm" class="mat-raised-button mat-primary"(click)="saveExpense()" [disabled]="frmExpense.error">Save</button>
+</mat-dialog-actions>

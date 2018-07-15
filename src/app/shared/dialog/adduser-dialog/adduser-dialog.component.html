@@ -1,0 +1,29 @@
+<h6 mat-dialog-title color="primary" style="font-size: 10px;">
+    We'd use your email to keep track of your expenses for you
+</h6>
+  <mat-dialog-content>
+  <div class="" *ngIf="loaderIsActive">
+      <mat-progress-bar mode="indeterminate" color="{{progressColor}}"></mat-progress-bar>
+  </div>
+  <form #frmAddUser (ngSubmit)="createUSer()" name="frmAddUser" id="frmAddUser">
+      <div class="form-row">
+              <mat-form-field appearance="standard">
+                  <mat-label>Username</mat-label>
+                  <input name="txtUsername" matInput placeholder="Username" required="" [(ngModel)]="userPayload.userName">
+                </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input name="txtemail" matInput placeholder="Your EmailAddress" required="" [(ngModel)]="userPayload.email" >
+              </mat-form-field>
+        </div>
+  </form>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+      <button class="mat-raised-button"(click)="close()">Close</button>
+      <button type="submit" name="btnCreateUser" form="frmAddUser" class="mat-raised-button mat-primary" [disabled]="frmAddUser.error">
+        Create
+      </button>
+  </mat-dialog-actions>
+  

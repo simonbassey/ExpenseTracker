@@ -1,0 +1,7 @@
+.toolbar-midcol-separator {
+    flex: 1 1 auto;
+  }
+#expense-table-wrapper.mat-toolbar-row, #expense-table-wrapper .mat-toolbar-single-row {
+    height: 60px !important;
+    background: white !important;
+}
