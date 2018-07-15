@@ -4,7 +4,7 @@ import { AdduserDialogComponent } from './dialog/adduser-dialog/adduser-dialog.c
 @NgModule({
     imports: [],
     exports: [],
-    declarations: [AdduserDialogComponent]
+    declarations: []
 })
 export class SharedModule {
 
