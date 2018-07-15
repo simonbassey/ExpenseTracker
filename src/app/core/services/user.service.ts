@@ -6,7 +6,7 @@ import { User } from '../models/Expense';
 @Injectable()
 export class UserService {
 
-    private userAPIBaseUrl = 'http://localhost:12622/api/users';
+    private userAPIBaseUrl = 'https://trackeryaexpenseapi.herokuapp.com/api/users';
     constructor(private httpClient: HttpClient) {
     }
 

@@ -6,7 +6,7 @@ import { Expense } from '../models/Expense';
 @Injectable()
 export class ExpenseService {
 
-    private expenseAPiBase = 'http://localhost:12622/api/expense';
+    private expenseAPiBase = 'https://trackeryaexpenseapi.herokuapp.com/api/expense';
     constructor(private httpClient: HttpClient) {
     }
 
