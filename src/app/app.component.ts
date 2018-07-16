@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
   }
 
   refreshExpenseList() {
-    this.loadExpenseList(this.user.userId);
+    this.loadExpenseList(this.user.email);
   }
 
   toNumber(value: any): Number {
