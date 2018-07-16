@@ -1,29 +1,48 @@
 <h6 mat-dialog-title color="primary" style="font-size: 10px;">
-    We'd use your email to keep track of your expenses for you
+<span *ngIf="!showSignInForm">We'd use your email to keep track of your expenses for you</span> 
+<span *ngIf="showSignInForm">SignIn to access your expenses</span> 
 </h6>
   <mat-dialog-content>
   <div class="" *ngIf="loaderIsActive">
       <mat-progress-bar mode="indeterminate" color="{{progressColor}}"></mat-progress-bar>
   </div>
   <form #frmAddUser (ngSubmit)="createUSer()" name="frmAddUser" id="frmAddUser">
-      <div class="form-row">
-              <mat-form-field appearance="standard">
-                  <mat-label>Username</mat-label>
-                  <input name="txtUsername" matInput placeholder="Username" required="" [(ngModel)]="userPayload.userName">
-                </mat-form-field>
-        </div>
-        <div class="form-row">
-            <mat-form-field>
-                <mat-label>Email</mat-label>
-                <input name="txtemail" matInput placeholder="Your EmailAddress" required="" [(ngModel)]="userPayload.email" >
-              </mat-form-field>
-        </div>
+      <div *ngIf="!showSignInForm" >
+            <div class="form-row">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Username</mat-label>
+                        <input name="txtUsername" matInput placeholder="Username" required="" [(ngModel)]="userPayload.userName">
+                      </mat-form-field>
+              </div>
+              <div class="form-row">
+                  <mat-form-field>
+                      <mat-label>Email</mat-label>
+                      <input name="txtemail" matInput placeholder="Your EmailAddress" required="" [(ngModel)]="userPayload.email" >
+                    </mat-form-field>
+              </div>
+      </div>
+      <div *ngIf="showSignInForm">
+            <div class="form-row">
+                    <mat-form-field appearance="standard">
+                        <mat-label>Email</mat-label>
+                        <input name="txtemail" matInput placeholder="Use your email address" required="" [(ngModel)]="userPayload.email">
+                      </mat-form-field>
+            </div>
+      </div>
+      
   </form>
   </mat-dialog-content>
   <mat-dialog-actions>
       <button class="mat-raised-button"(click)="close()">Close</button>
-      <button type="submit" name="btnCreateUser" form="frmAddUser" class="mat-raised-button mat-primary" [disabled]="frmAddUser.error">
+      <button *ngIf="!showSignInForm"  type="submit" name="btnCreateUser" form="frmAddUser" class="mat-raised-button mat-primary" [disabled]="frmAddUser.error">
         Create
       </button>
+      <button *ngIf="showSignInForm"  type="button" name="btnSignIn" form="frmAddUser" class="mat-raised-button mat-primary" [disabled]="frmAddUser.error" (click)="SignInUser()">
+        SignIn
+      </button>
+      <div style="width: 100%;display: block;margin-top: 20px;color: rebeccapurple;text-decoration: underline;">
+        <label *ngIf="showSignInForm" href=""  (click)="showSignInForm=false">Don't have account? Sign up</label>
+        <label *ngIf="!showSignInForm" href=""  (click)="showSignInForm=true">SignIn instead</label>
+      </div>
   </mat-dialog-actions>
   

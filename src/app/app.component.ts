@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
       return;
     }
     this.user = JSON.parse(userObj) as User;
-    this.loadExpenseList(this.user.userId);
+    this.loadExpenseList(this.user.email);
   }
 
   loadUserList() {
@@ -94,19 +94,23 @@ export class AppComponent implements OnInit {
       });
     dialogRef.afterClosed().subscribe(
       (result: Expense) => {
-        this.expenseList.push(result);
+        if (result) {
+          this.expenseList.push(result);
+        }
       }
     );
   }
 
   initAddUserModal(): void {
     const newUserModal = this.modalDialog.open(AdduserDialogComponent, {
-      height: '300px',
-      width: '20%'
+      height: '350px',
+      width: '25%'
     });
     newUserModal.afterClosed().subscribe(
       (result) => {
-        this.user = result;
+        if(result) {
+          this.user = result;
+        }
       }
     );
   }

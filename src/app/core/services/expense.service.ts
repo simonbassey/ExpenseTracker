@@ -21,7 +21,7 @@ export class ExpenseService {
     }
 
     GetExpensesForUser(userId: string): Promise<Expense[]> {
-        return this.httpClient.get<Expense[]>(`${this.expenseAPiBase}/${userId}`)
+        return this.httpClient.get<Expense[]>(`${this.expenseAPiBase}/user/${userId}`)
         .toPromise<Expense[]>();
     }
 }

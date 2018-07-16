@@ -9,10 +9,11 @@ import { MatDialogRef, MatSnackBar } from '@angular/material';
 })
 export class AdduserDialogComponent implements OnInit {
 
-  public userPayload: any = {
+  public userPayload = {
     userName: '',
     email: ''
   };
+  public showSignInForm = true;
   public loaderIsActive = false;
   public progressColor: string;
   constructor(private dialogInstance: MatDialogRef<AdduserDialogComponent>,
@@ -40,6 +41,34 @@ export class AdduserDialogComponent implements OnInit {
       },
       (error) => {
         this.loaderIsActive = false;
+      }
+    );
+  }
+
+  SignInUser() {
+    if (!this.userPayload || !this.userPayload.email) {
+      this.snackBarInstance.open('Invalid login credentials', '', {duration: 200});
+      return;
+    }
+    this.loaderIsActive = true;
+    this.userService.GetUser(this.userPayload.email).then(
+      (response) => {
+        this.loaderIsActive = false;
+        this.dialogInstance.close(response);
+      },
+      (error) => {
+        this.loaderIsActive = false;
+        if(!error || !error.data) {
+          this.snackBarInstance.open('Cannot connect to server. Check internet connection', 'Retry', {
+            duration:500,
+            horizontalPosition: 'right'
+          });
+          return;
+        }
+        if (error.status && error.status === '400') {
+          this.snackBarInstance.open(error.message,'', {duration:500, horizontalPosition: 'right'});
+        }
+
       }
     );
   }
