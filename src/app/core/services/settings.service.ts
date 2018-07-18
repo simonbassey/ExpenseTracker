@@ -9,7 +9,7 @@ export class SettingsService {
         if (appSettings['IsDev']) {
             return appSettings['dev'] as AppSettings;
         }
-        if (appSettings['IsDev']) {
+        if (appSettings['IsProd']) {
             return appSettings['prod'] as AppSettings;
         }
         return null;
@@ -24,8 +24,8 @@ export class SettingsService {
             prod: {
                 APIBaseUrl: 'https://trackeryaexpenseapi.herokuapp.com/api'
             },
-            IsDev: true,
-            IsProd: false
+            IsDev: false,
+            IsProd: true
         };
     }
 }
