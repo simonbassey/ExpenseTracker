@@ -54,6 +54,7 @@ export class AdduserDialogComponent implements OnInit {
     this.userService.GetUser(this.userPayload.email).then(
       (response) => {
         this.loaderIsActive = false;
+        this.cacheUserInfo(response);
         this.dialogInstance.close(response);
       },
       (error) => {
