@@ -37,12 +37,12 @@
       <button *ngIf="!showSignInForm"  type="submit" name="btnCreateUser" form="frmAddUser" class="mat-raised-button mat-primary" [disabled]="frmAddUser.error">
         Create
       </button>
-      <button *ngIf="showSignInForm"  type="button" name="btnSignIn" form="frmAddUser" class="mat-raised-button mat-primary" [disabled]="frmAddUser.error" (click)="SignInUser()">
+      <button *ngIf="showSignInForm"  type="button" name="btnSignIn" form="frmAddUser" class="mat-raised-button mat-primary" [disabled]="frmAddUser.error || loaderIsActive" (click)="SignInUser()">
         SignIn
       </button>
-      <div style="width: 100%;display: block;margin-top: 20px;color: rebeccapurple;text-decoration: underline;">
-        <label *ngIf="showSignInForm" href=""  (click)="showSignInForm=false">Don't have account? Sign up</label>
-        <label *ngIf="!showSignInForm" href=""  (click)="showSignInForm=true">SignIn instead</label>
+      <div class="signup-link-wrapper">
+        <label *ngIf="showSignInForm" (click)="showSignInForm=false">Don't have account? Sign up</label>
+        <label *ngIf="!showSignInForm" (click)="showSignInForm=true">SignIn instead</label>
       </div>
   </mat-dialog-actions>
   

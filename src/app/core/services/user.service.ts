@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/toPromise';
 import { User } from '../models/Expense';
+import { SettingsService, AppSettings } from './settings.service';
 
 @Injectable()
 export class UserService {
 
-    private userAPIBaseUrl = 'https://trackeryaexpenseapi.herokuapp.com/api/users';
-    constructor(private httpClient: HttpClient) {
+
+    private userAPIBaseUrl: string;
+    private _appSettings: AppSettings;
+    constructor(private httpClient: HttpClient, private settingsService: SettingsService) {
+        this._appSettings = this.settingsService.GetSettings();
+        this.userAPIBaseUrl = `${this._appSettings.APIBaseUrl}/users`;
     }
 
     GetUsers(): Promise<User[]> {

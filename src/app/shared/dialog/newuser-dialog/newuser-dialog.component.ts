@@ -43,12 +43,17 @@ export class NewuserDialogComponent implements OnInit {
     this._expenseService.SaveExpense(this.expensePayload).then(
       (response) => {
         this.loaderIsActive = false;
-        this.snackBarInstance.open('Expense record saved', '', {duration: 1000});
+        this.snackBarInstance.open('Expense record saved', 'Success', {duration: 1500, horizontalPosition: 'right'});
         this.dialogInstance.close(response);
       },
       (error) => {
         this.loaderIsActive = false;
-        this.snackBarInstance.open('Could not save record. please try again', '', {duration: 1500});
+        const errorNotificationRef = this.snackBarInstance.open('Could not save record. please try again', 'Retry', {duration: 1500});
+        errorNotificationRef.onAction().subscribe(
+          result => {
+            this.saveExpense();
+          }
+        );
       }
     );
   }

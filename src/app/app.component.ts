@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ExpenseService } from './core/services/expense.service';
 import { UserService } from './core/services/user.service';
 import { Expense, User } from './core/models/Expense';
@@ -11,7 +11,7 @@ import { AdduserDialogComponent } from './shared/dialog/adduser-dialog/adduser-d
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   public expenseList: Array<Expense> = [];
   public usersList: Array<User> = [];
@@ -34,6 +34,12 @@ export class AppComponent implements OnInit {
     }
     this.user = JSON.parse(userObj) as User;
     this.loadExpenseList(this.user.email);
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.user.email) {
+      this.initAddUserModal(true);
+    }
   }
 
   loadUserList() {
@@ -72,7 +78,7 @@ export class AppComponent implements OnInit {
 
   initExpenseAddmodal(): void {
     if (!this.user || !this.user.email) {
-      let unAuthorizedSnackBarRef = this.snackBar.open(
+      const unAuthorizedSnackBarRef = this.snackBar.open(
         'You are not signed In',
         'Sign In', {
           verticalPosition: 'bottom',
@@ -82,7 +88,7 @@ export class AppComponent implements OnInit {
       );
       unAuthorizedSnackBarRef.onAction().subscribe(
         () => {
-          this.initAddUserModal();
+          this.initAddUserModal(true);
         }
       );
       return;
@@ -101,14 +107,16 @@ export class AppComponent implements OnInit {
     );
   }
 
-  initAddUserModal(): void {
+  initAddUserModal(dismissible: boolean = false): void {
     const newUserModal = this.modalDialog.open(AdduserDialogComponent, {
       height: '350px',
-      width: '25%'
+      width: '25%',
+      hasBackdrop: true,
+      disableClose: dismissible
     });
     newUserModal.afterClosed().subscribe(
       (result) => {
-        if(result) {
+        if (result) {
           this.user = result;
         }
       }
@@ -118,6 +126,7 @@ export class AppComponent implements OnInit {
   logOutUser(): void {
     if (localStorage.getItem('user')) {
       localStorage.removeItem('user');
+      this.initAddUserModal(true);
     }
   }
 }

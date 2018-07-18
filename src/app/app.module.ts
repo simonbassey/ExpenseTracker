@@ -12,6 +12,7 @@ import { UserService } from './core/services/user.service';
 import { ExpenseService } from './core/services/expense.service';
 import { NewuserDialogComponent } from './shared/dialog/newuser-dialog/newuser-dialog.component';
 import { AdduserDialogComponent } from './shared/dialog/adduser-dialog/adduser-dialog.component';
+import { SettingsService } from './core/services/settings.service';
 
 
 
@@ -29,7 +30,7 @@ import { AdduserDialogComponent } from './shared/dialog/adduser-dialog/adduser-d
     FormsModule,
     AppMaterialModule
   ],
-  providers: [UserService, ExpenseService],
+  providers: [SettingsService, UserService, ExpenseService],
   bootstrap: [AppComponent],
   entryComponents: [NewuserDialogComponent, AdduserDialogComponent]
 })

@@ -58,15 +58,15 @@ export class AdduserDialogComponent implements OnInit {
       },
       (error) => {
         this.loaderIsActive = false;
-        if(!error || !error.data) {
+        if (!error) {
           this.snackBarInstance.open('Cannot connect to server. Check internet connection', 'Retry', {
-            duration:500,
+            duration: 1000,
             horizontalPosition: 'right'
           });
           return;
         }
-        if (error.status && error.status === '400') {
-          this.snackBarInstance.open(error.message,'', {duration:500, horizontalPosition: 'right'});
+        if (error.status && error.status === 400) {
+          this.snackBarInstance.open(error.error, '', {duration: 1000, horizontalPosition: 'right'});
         }
 
       }
