@@ -118,15 +118,16 @@ export class AppComponent implements OnInit, AfterViewInit {
       (result) => {
         if (result) {
           this.user = result;
+          this.loadExpenseList(this.user.email);
         }
       }
     );
   }
 
   logOutUser(): void {
-    if (localStorage.getItem('user')) {
-      localStorage.removeItem('user');
-      this.initAddUserModal(true);
-    }
+    this.user = {} as User;
+    this.expenseList = [];
+    localStorage.removeItem('user');
+    this.initAddUserModal(true);
   }
 }
