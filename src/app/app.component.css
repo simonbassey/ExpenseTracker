@@ -5,3 +5,28 @@
     height: 60px !important;
     background: white !important;
 }
+.expense-table-wrapper table {
+    background: #fff;
+    color: rgba(0,0,0,.87);
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+.expense-table-wrapper .table-bordered > thead > tr > th, .table-bordered > thead > tr > td {
+    border-bottom-width: 0 !important;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.table-bordered > tbody > tr > th, 
+.table-bordered > tfoot > tr > th, 
+.table-bordered > thead > tr > td, 
+.table-bordered > tbody > tr > td, 
+.table-bordered > tfoot > tr > td {
+    border: 1px solid rgba(0,0,0,.12) !important;
+}
+.table-bordered > thead > tr > th {
+    border: 0px solid rgba(0,0,0,.12) !important;
+}
+
+.expense-table-wrapper .table-bordered > thead > tr > th {
+    border: 0px solid rgba(0,0,0,.12) !important;
+}

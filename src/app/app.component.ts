@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ExpenseService } from './core/services/expense.service';
 import { UserService } from './core/services/user.service';
 import { Expense, User } from './core/models/Expense';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog, MatSnackBar, PageEvent } from '@angular/material';
 import { NewuserDialogComponent } from './shared/dialog/newuser-dialog/newuser-dialog.component';
 import { AdduserDialogComponent } from './shared/dialog/adduser-dialog/adduser-dialog.component';
 
@@ -18,6 +18,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   public progressColor: string;
   public loaderIsActive = false;
   public user: User = {} as User;
+  public pageSize = 5;
+  public expenseListBackup: Array<Expense> = [];
   constructor(
     private _expenseService: ExpenseService,
     private _userService: UserService,
@@ -42,22 +44,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
   }
 
-  loadUserList() {
-    this._userService.GetUsers().then(
-      (response) => {
-        console.log('users => ', response);
-      },
-      (error) => {
-        console.log('request to fetch users list failed -> ', error);
-      }
-    );
-  }
-
   loadExpenseList(userId: string) {
     this.loaderIsActive = true;
     this._expenseService.GetExpensesForUser(userId).then(
       (response) => {
-        this.expenseList = response;
+        this.expenseListBackup = response;
+        this.expenseList = this.expenseListBackup.slice(0, this.pageSize);
         this.loaderIsActive = false;
       },
       (error) => {
@@ -129,5 +121,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.expenseList = [];
     localStorage.removeItem('user');
     this.initAddUserModal(true);
+  }
+
+  /*
+  * Pagination centric logic
+  */
+  onRequestedPageChanged(pageChangedEvent: PageEvent) {
+    const x = pageChangedEvent.pageSize;
+    const start = pageChangedEvent.pageIndex * pageChangedEvent.pageSize;
+    const end = start + pageChangedEvent.pageSize;
+    this.expenseList = this.expenseListBackup.slice(start, end);
   }
 }
