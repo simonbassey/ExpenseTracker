@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { fromPromise } from 'rxjs/observable/fromPromise';
+import { from as fromPromise } from 'rxjs';
 import { Expense } from '../models/Expense';
 import { SettingsService, AppSettings } from './settings.service';
 

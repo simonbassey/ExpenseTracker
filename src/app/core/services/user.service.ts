@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import 'rxjs/add/operator/toPromise';
+
 import { User } from '../models/Expense';
 import { SettingsService, AppSettings } from './settings.service';
 

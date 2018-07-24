@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {FlexLayoutModule} from '@angular/flex-layout';
 
 
 import { AppComponent } from './app.component';
@@ -26,6 +27,7 @@ import { SettingsService } from './core/services/settings.service';
     BrowserModule,
     BrowserAnimationsModule,
     CommonModule,
+    FlexLayoutModule,
     HttpClientModule,
     FormsModule,
     AppMaterialModule
