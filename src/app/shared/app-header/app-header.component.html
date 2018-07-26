@@ -1,0 +1,11 @@
+<nav class="page-header">
+    <mat-toolbar color="primary">
+        <button mat-icon-button (click)="toggleSideBar()">
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span>Expense Tracker</span>
+        <span class="toolbar-midcol-separator"></span>
+        <span style="font-size: 12px;">{{user.email}}</span>
+        <button mat-button *ngIf="user && user.email" (click)="onHeaderAction('log-out')">Log-Out</button>
+    </mat-toolbar>
+</nav>

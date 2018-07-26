@@ -1,0 +1,75 @@
+<div class="main-page-wrapper">
+  <app-header [user]="user" (sidebarToggled) = "onSideBarToggled($event)"
+    >
+  </app-header>
+  <div class="page-contents">
+      <div style="width: 65%; margin:0 auto; margin-top: 10%;" id="expense-table-wrapper">
+          <mat-toolbar>
+              <span color="primary"> Expense List</span>
+              <span class="toolbar-midcol-separator"></span>
+              <button mat-raised-button color="primary" [disabled]="loaderIsActive" (click)="initExpenseAddmodal()">
+                  <mat-icon>add</mat-icon>
+                  Add Expense
+              </button>
+              <button *ngIf="!loaderIsActive" mat-icon-button color="primary" style="margin-left: 5px;" (click)="refreshExpenseList()">
+                  <mat-icon>refresh</mat-icon>
+              </button>
+          </mat-toolbar>
+          <div class="" *ngIf="loaderIsActive">
+              <mat-progress-bar mode="indeterminate" color="{{progressColor}}"></mat-progress-bar>
+          </div>
+          <div class="expense-table-wrapper">
+              <table class="table table-hover table-bordered" id="expense-table">
+                  <thead>
+                      <tr>
+                          <td>#</td>
+                          <td>Title</td>
+                          <td>Expense Date</td>
+                          <td>Amount</td>
+                          <td>VAT</td>
+                          <td>Recorded</td>
+                          <td colspan="2"></td>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let expense of expenseList; let index = index">
+                          <td>{{index+1}}</td>
+                          <td>{{expense.title}}</td>
+                          <td>{{expense.expenseDate | date:"MMM dd, hh:mm a"}}</td>
+                          <td>{{expense.amount | currency:'NGN':'symbol':'0.2-2'}}</td>
+                          <td>{{(0.2 * toNumber(expense.amount)) | currency:'NGN':'symbol':'0.2-2'}}</td>
+                          <td>{{expense.created | date:"MMM dd, hh:mm a"}}</td>
+                          <td colspan="2">
+                              <button mat-icon-button color="warn">
+                                  <mat-icon>delete</mat-icon>
+                              </button>
+                              <button mat-icon-button color="primary">
+                                  <mat-icon>edit</mat-icon>
+                              </button>
+                              <button mat-icon-button color="primary" [matTooltip]="expense.description">
+                                  <mat-icon>more_horiz</mat-icon>
+                              </button>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td colspan="7">
+                              Total
+                          </td>
+                      </tr>
+                      <tr>
+                          <td colspan="7">
+                                  <mat-paginator [length]="expenseListBackup.length"
+                                  [pageSize]="pageSize"
+                                  [pageSizeOptions]="[5, 10, 25, 100]"
+                                  (page)="onRequestedPageChanged($event)">
+                                  </mat-paginator>
+                          </td>
+                      </tr>
+                  </tfoot>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>

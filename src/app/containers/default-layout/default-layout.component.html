@@ -1,0 +1,15 @@
+<!-- <app-toolbar></app-toolbar> -->
+<div class="full-page">
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #snav mode="side" fixedTopGap="56" style="width:250px;" opened="true">
+      <div style="height: 64px; background: #3f51b5;"></div>
+      <mat-nav-list>
+        <a>Home</a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
