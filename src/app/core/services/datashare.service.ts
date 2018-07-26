@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
 export class DataShareService {
     private subject = new Subject<any>();
 
-    sendData(message: string) {
+    sendData(message: any) {
         this.subject.next(message);
     }
 

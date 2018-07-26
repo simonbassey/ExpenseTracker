@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '../../core/models/Expense';
+import { DataShareService } from '../../core/services/datashare.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,7 @@ export class AppHeaderComponent implements OnInit {
   @Output() sidebarToggled: EventEmitter<boolean> = new EventEmitter();
   sideBarOpened = true;
 
-  constructor() { }
+  constructor(private dataService: DataShareService) { }
 
   ngOnInit() {
   }
@@ -25,5 +26,6 @@ export class AppHeaderComponent implements OnInit {
   toggleSideBar() {
     this.sideBarOpened = !this.sideBarOpened;
     this.sidebarToggled.emit(this.sideBarOpened);
+    this.dataService.sendData(this.sideBarOpened);
   }
 }

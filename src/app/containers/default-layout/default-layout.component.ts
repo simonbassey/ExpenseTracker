@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DataShareService } from '../../core/services/datashare.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-default-layout',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DefaultLayoutComponent implements OnInit {
 
-  constructor() { }
+  private dataEvents: Subscription;
+  public drawerIsOpened: boolean;
+
+  constructor(private sharedDataService: DataShareService) {
+    this.dataEvents = sharedDataService.getData()
+                        .subscribe(data => {
+                          console.log('data received -> ', data);
+                          this.drawerIsOpened = data as boolean;
+                        });
+  }
+
 
   ngOnInit() {
+    this.drawerIsOpened = true;
   }
 
 }
