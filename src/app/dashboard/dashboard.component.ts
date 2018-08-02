@@ -4,6 +4,7 @@ import { ExpenseService } from '../core/services/expense.service';
 import { MatDialog, MatSnackBar, PageEvent } from '@angular/material';
 import { NewuserDialogComponent } from '../shared/dialog/newuser-dialog/newuser-dialog.component';
 import { AdduserDialogComponent } from '../shared/dialog/adduser-dialog/adduser-dialog.component';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,12 +19,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   public user: User = {} as User;
   public pageSize = 5;
   public expenseListBackup: Array<Expense> = [];
+  public viewOptions: Array<ViewOption> = [];
+  public selectedViewOption: ViewOption = null;
+  public tableSearchKey: string;
   constructor(
     private _expenseService: ExpenseService,
     private modalDialog: MatDialog,
     private snackBar: MatSnackBar
   ) {
     this.progressColor = 'primary';
+    this.initViewOptions();
   }
 
   ngOnInit(): void {
@@ -134,4 +139,38 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.expenseList = this.expenseListBackup.slice(start, end);
   }
 
+  totalExpenses(): Number {
+    let total = 0;
+    this.expenseListBackup.forEach(exp => total += Number(exp.amount));
+    return total;
+  }
+
+
+  initViewOptions() {
+    const dateNow = new Date();
+    this.viewOptions = [
+      {'label': 'Today', 'display': `${moment().format('MMM Do YY')} - ${moment().format('MMM Do YY')}`},
+      {
+        'label': 'Yesterday',
+        'display': `${moment().subtract(1, 'days').format('MMM Do YY')} - ${moment().subtract(1, 'days').format('MMM Do YY')}`
+      },
+      {
+        'label' : 'Last 7 days',
+        'display': `${moment().subtract(8, 'days').format('MMM Do YY')} - ${moment().subtract(1, 'days').format('MMM Do YY')}`
+      },
+      {
+        'label' : 'Last 30 days',
+        'display': `${moment().subtract(31, 'days').format('MMM Do YY')} - ${moment().subtract(1, 'days').format('MMM Do YY')}`
+      }
+    ];
+
+    this.selectedViewOption = this.viewOptions[0];
+  }
+}
+
+
+export interface ViewOption {
+  label: string;
+  display: string;
+  optionValue?: string;
 }

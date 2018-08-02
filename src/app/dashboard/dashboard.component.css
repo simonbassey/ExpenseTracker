@@ -30,3 +30,14 @@
 .expense-table-wrapper .table-bordered > thead > tr > th {
     border: 0px solid rgba(0,0,0,.12) !important;
 }
+.page-contents{
+    padding-left:50px;
+    padding-right: 50px;
+}
+#expense-table-wrapper .toolbar-midcol-separator {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+#expense-table-wrapper .toolbar-midcol-separator mat-form-field {
+    width: 100%;
+  }

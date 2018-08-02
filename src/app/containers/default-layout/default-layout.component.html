@@ -1,10 +1,45 @@
-<!-- <app-toolbar></app-toolbar> -->
 <div class="full-page">
-<mat-sidenav-container class="sidenav-container">
+    <app-header [user]="user">
+    </app-header>
+<mat-sidenav-container class="sidenav-container" style="padding-top: 64px">
     <mat-sidenav #snav mode="side" fixedTopGap="56" style="width:250px;" [(opened)]="drawerIsOpened">
-      <div style="height: 64px; background: #3f51b5;"></div>
       <mat-nav-list>
-        <a>Home</a>
+          <mat-list-item>
+             <a matLine href="...">Total Expenses (1500)</a>
+             <span>55,000</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <h3 matSubheader>Explore Views</h3>
+          <mat-list-item>
+              <mat-icon matListIcon>view_compact</mat-icon>
+              <a matLine routerLink="/view/table" >Table</a>
+           </mat-list-item>
+           <mat-list-item>
+              <mat-icon matListIcon>show_chart</mat-icon>
+              <a matLine routerLink="/view/chart"> Chart </a>
+           </mat-list-item>
+           <mat-list-item>
+              <mat-icon matListIcon>date_range</mat-icon>
+              <a matLine routerLink="/view/calendar" >Calendar</a>
+           </mat-list-item>
+           <mat-list-item>
+                <mat-icon matListIcon>access_time</mat-icon>
+              <a matLine routerLink="/view/timeline" href="...">Timeline</a>
+           </mat-list-item>
+           <mat-divider></mat-divider>
+          <h3 matSubheader>More</h3>
+          <mat-list-item>
+              <mat-icon matListIcon>settings</mat-icon>
+              <a matLine routerLink="/settings">Settings</a>
+           </mat-list-item>
+           <mat-list-item>
+              <mat-icon matListIcon>feedback</mat-icon>
+              <a matLine routerLink="/faq">FAQ</a>
+           </mat-list-item>
+           <mat-list-item>
+              <mat-icon matListIcon>info</mat-icon>
+              <a matLine routerLink="/about">About</a>
+           </mat-list-item>
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

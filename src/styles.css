@@ -252,3 +252,25 @@ table {
       border-bottom: 0;
     }
   }
+
+  /****** text alignment Styling ******/
+  .text-center {
+    text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .text-justify {
+    text-align: justify;
+  }
+
+  /*-------- direction styling --------*/
+  .pull-right {
+    float: right;
+  }
+  .pull-left {
+    float: left;
+  }

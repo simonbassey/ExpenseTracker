@@ -18,6 +18,10 @@ import { AppRoutingModule } from './app.routing.module';
 import { DefaultLayoutComponent } from './containers/default-layout/default-layout.component';
 import { SharedModule } from './shared/app.shared.module';
 import { DataShareService } from './core/services/datashare.service';
+import { TimelineViewComponent } from './timeline-view/timeline-view.component';
+import { ChartViewComponent } from './chart-view/chart-view.component';
+import { CalendarViewComponent } from './calendar-view/calendar-view.component';
+import { TableViewComponent } from './table-view/table-view.component';
 
 
 
@@ -26,6 +30,10 @@ import { DataShareService } from './core/services/datashare.service';
     AppComponent,
     DefaultLayoutComponent,
     DashboardComponent,
+    ChartViewComponent,
+    CalendarViewComponent,
+    TimelineViewComponent,
+    TableViewComponent,
     NewuserDialogComponent,
     AdduserDialogComponent
   ],

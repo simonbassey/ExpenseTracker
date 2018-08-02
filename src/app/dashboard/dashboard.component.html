@@ -1,12 +1,22 @@
 <div class="main-page-wrapper">
-  <app-header [user]="user" (sidebarToggled) = "onSideBarToggled($event)"
-    >
-  </app-header>
   <div class="page-contents">
-      <div style="width: 65%; margin:0 auto; margin-top: 10%;" id="expense-table-wrapper">
+      <div fxLayout="column" fxLayoutAlign="center" style="margin:0 auto; margin-top: 5%;" id="expense-table-wrapper">
           <mat-toolbar>
               <span color="primary"> Expense List</span>
-              <span class="toolbar-midcol-separator"></span>
+              <div class="toolbar-midcol-separator">
+                    <div class="form-row">
+                            <mat-form-field>
+                                <input name="txtSearchExpense" matInput [(ngModel)]="tableSearchKey" >
+                            </mat-form-field>
+                    </div>
+              </div>
+              <mat-form-field style="margin-right: 20px;font-size: 13px;font-weight: bold;line-height: 1.125">
+                    <mat-select [(value)]="selectedViewOption.label">
+                      <mat-option *ngFor="let viewOption of viewOptions" [value]="viewOption.display">
+                          {{viewOption.label}}
+                      </mat-option>
+                    </mat-select>
+              </mat-form-field>
               <button mat-raised-button color="primary" [disabled]="loaderIsActive" (click)="initExpenseAddmodal()">
                   <mat-icon>add</mat-icon>
                   Add Expense
@@ -22,41 +32,44 @@
               <table class="table table-hover table-bordered" id="expense-table">
                   <thead>
                       <tr>
-                          <td>#</td>
-                          <td>Title</td>
-                          <td>Expense Date</td>
-                          <td>Amount</td>
-                          <td>VAT</td>
-                          <td>Recorded</td>
-                          <td colspan="2"></td>
+                          <th>#</th>
+                          <th>Title</th>
+                          <th>Expense Date</th>
+                          <th>Amount</th>
+                          <th>Recorded</th>
+                          <th></th>
                       </tr>
                   </thead>
                   <tbody>
                       <tr *ngFor="let expense of expenseList; let index = index">
                           <td>{{index+1}}</td>
                           <td>{{expense.title}}</td>
-                          <td>{{expense.expenseDate | date:"MMM dd, hh:mm a"}}</td>
-                          <td>{{expense.amount | currency:'NGN':'symbol':'0.2-2'}}</td>
-                          <td>{{(0.2 * toNumber(expense.amount)) | currency:'NGN':'symbol':'0.2-2'}}</td>
+                          <td>{{expense.expenseDate | date:"EEE MMM dd, hh:mm a"}}</td>
+                          <td class="text-right">{{expense.amount | currency:'NGN':'N':'0.2-2'}}</td>
                           <td>{{expense.created | date:"MMM dd, hh:mm a"}}</td>
-                          <td colspan="2">
-                              <button mat-icon-button color="warn">
-                                  <mat-icon>delete</mat-icon>
+                          <td>
+                            <button mat-icon-button [matMenuTriggerFor]="menu" [matTooltip]="expense.description">
+                                <mat-icon>more_vert</mat-icon>
                               </button>
-                              <button mat-icon-button color="primary">
+                              <mat-menu #menu="matMenu">
+                                <button mat-menu-item>
                                   <mat-icon>edit</mat-icon>
-                              </button>
-                              <button mat-icon-button color="primary" [matTooltip]="expense.description">
-                                  <mat-icon>more_horiz</mat-icon>
-                              </button>
+                                  <span>Edit</span>
+                                </button>
+                                <button mat-menu-item>
+                                  <mat-icon>delete</mat-icon>
+                                  <span>Remove</span>
+                                </button>
+                              </mat-menu>
                           </td>
                       </tr>
                   </tbody>
                   <tfoot>
                       <tr>
-                          <td colspan="7">
+                          <td colspan="3">
                               Total
                           </td>
+                          <td class="text-right">{{totalExpenses() | currency:'NGN':'N':'0.2-2'}}</td>
                       </tr>
                       <tr>
                           <td colspan="7">
