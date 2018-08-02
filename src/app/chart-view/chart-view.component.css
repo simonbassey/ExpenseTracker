@@ -1,0 +1,20 @@
+.page-wrapper {
+  margin-top: 5%;
+  display: flex;
+  height: 100%;
+  flex: 1;
+}
+.dashboard-card {
+  width: 100%;
+  margin: 0 25px;
+  }
+  
+  .more-button {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+  }
+  
+  .dashboard-card-content {
+    text-align: center;
+  }
